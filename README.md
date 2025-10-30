@@ -44,20 +44,20 @@ A **toggle button** allows users to **show or hide skills dynamically**, demonst
 **Major:** 3rd Year Student, Computer Science and Engineering  
 
 **Skills & Interests:**  
-- 💻 HTML, CSS, JavaScript  
-- 🎨 Graphic Design (Canva)  
-- ⚙️ C# Programming  
+- 💻 Frontend: HTML, CSS, JavaScript, React.js
+- 🖥️ Backend: Node.js, ASP.NET Core
+- 🗄️ Databases: MongoDB, SQL
+- 🎨 Design: Canva (Graphic Design)
+- 🧠 Programming Languages: Python, C#
 
 ---
 
 ## 🖼️ Preview
-Screenshots showing the app **with skills hidden** and **skills displayed**:
+Screenshots showing the app in different states:
 
-| Skills Hidden | Skills Shown |
-|---------------|--------------|
-| ![Hidden](./screenshots/screenshot1.jpg) | ![Shown](./screenshots/screenshot2.jpg) |
-
-The **Show/Hide Skills** button toggles the visibility dynamically.
+| Home Screen | Skills Section | Education Section | Certifications Section |
+|-------------|----------------|------------------|----------------------|
+| ![Home](./screenshots/home-screen.jpg) | ![Skills](./screenshots/skills.jpg) | ![Education](./screenshots/education.jpg) | ![Certifications](./screenshots/certifications.jpg) |
 
 ---
 
@@ -75,7 +75,7 @@ The **Show/Hide Skills** button toggles the visibility dynamically.
       ```bash
       npm install
 
-   For web compatibility, also install:
+4. For web compatibility, also install:
       ```bash
       npx expo install react-dom react-native-web
 
@@ -90,7 +90,7 @@ The **Show/Hide Skills** button toggles the visibility dynamically.
 
 ## 📝 Notes
 
-- Skills toggle uses useState to show/hide skills dynamically.
-- Custom styling includes borders, shadows, rounded corners, and spacing for polished UI.
+- Sections toggle uses useState to show/hide dynamically.
+- Custom styling includes borders, shadows, rounded corners, and spacing for a polished UI.
 - Works best on mobile screens.
-- For older React Native versions, gap in skillsContainer may require marginBottom on individual items.
+- For older React Native versions, the gap in skillsContainer may require additional margin adjustments on individual items.

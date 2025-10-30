@@ -1,14 +1,14 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 export default function App() {
-  //State to control whether skills are visible or hidden
-  const [showSkills, setShowSkills] = useState(false);
+  // Tracks which section (skills, education, certifications) is currently open
+  const [activeSection, setActiveSection] = useState(null);
 
   return (
     <View style={styles.container}>
-      {/* Profile Image */}
+      {/* Profile image */}
       <Image
         source={require('./assets/profile.jpg')}
         style={styles.image}
@@ -19,42 +19,98 @@ export default function App() {
 
       {/* Subtitle */}
       <Text style={styles.subtitle}>
-        3rd Year Student of Computer Science and Engineering 
+        3rd Year Student of Computer Science and Engineering
       </Text>
 
-      {/* Button to toggle skills visibility */}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={()=> setShowSkills(!showSkills)}
-      >
-        <Text style={styles.buttonText}>
-          {showSkills ? 'Hide Skills' : 'Show Skills'}
-        </Text>
-      </TouchableOpacity>
+      {/* Row of buttons to toggle each section */}
+      <View style={styles.buttonRow}>
+        {/* Skills button */}
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setActiveSection(activeSection === 'skills' ? null : 'skills')}
+        >
+          <Text style={styles.buttonText}>
+            {activeSection === 'skills' ? 'Hide Skills' : 'Show Skills'}
+          </Text>
+        </TouchableOpacity>
 
-      {/* Skills section, only visible if showSkills is true */}
-      {showSkills && (
-        <View style={styles.skillsContainer}>
-          <Text style={styles.skill}>💻 HTML, CSS, JavaScript</Text>
-          <Text style={styles.skill}>🎨 Graphic Design (Canva)</Text>
-          <Text style={styles.skill}>⚙️ C# Programming</Text>
+        {/* Education button */}
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setActiveSection(activeSection === 'education' ? null : 'education')}
+        >
+          <Text style={styles.buttonText}>
+            {activeSection === 'education' ? 'Hide Education' : 'Show Education'}
+          </Text>
+        </TouchableOpacity>
+
+        {/* Certifications button */}
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setActiveSection(activeSection === 'certifications' ? null : 'certifications')}
+        >
+          <Text style={styles.buttonText}>
+            {activeSection === 'certifications' ? 'Hide Certifications' : 'Show Certifications'}
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Skills section */}
+      {activeSection === 'skills' && (
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Skills</Text>
+
+          {/* List of technical and soft skills */}
+          <View style={styles.skillsContainer}>
+            <Text style={styles.skill}>💻 Frontend: HTML, CSS, JavaScript, React.js</Text>
+            <Text style={styles.skill}>🖥️ Backend: Node.js, ASP.NET Core</Text>
+            <Text style={styles.skill}>🗄️ Databases: MongoDB, SQL</Text>
+            <Text style={styles.skill}>🎨 Design: Canva (Graphic Design)</Text>
+            <Text style={styles.skill}>🧠 Programming Languages: Python, C#</Text>
+          </View>
         </View>
       )}
-      
-      
+
+      {/* Education section */}
+      {activeSection === 'education' && (
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Education</Text>
+          <View style={styles.skillsContainer}>
+            <Text style={styles.skill}>🎓 University of Mitrovica “Isa Boletini” — BSc Computer Science & Engineering (2023–2026)</Text>
+            <Text style={styles.skill}>🏫 Gymnasium “Hamëz Jashari” (2020–2023)</Text>
+          </View>
+        </View>
+      )}
+
+      {/* Certifications section */}
+      {activeSection === 'certifications' && (
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Certifications</Text>
+          <View style={styles.skillsContainer}>
+            <Text style={styles.skill}>📜 ICT for Kosovo’s Growth — Web Application Development Professional (July 2025)</Text>
+            <Text style={styles.skill}>☁️ Prishtina REA — Web App Developer & Cloud Computing (Jan–Apr 2025)</Text>
+            <Text style={styles.skill}>💡 KSV Center for Self-Support — Web Programming (HTML) (June 2023)</Text>
+          </View>
+        </View>
+      )}
+
+      {/* Status bar */}
       <StatusBar style="auto" />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
- container: {
+  // Main container
+  container: {
     flex: 1,
     backgroundColor: '#c6a3a5ff',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
   },
+
+  // Profile image style
   image: {
     width: 220,
     height: 220,
@@ -63,53 +119,97 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: '#a16464ff',
   },
+
+  // Name text
   title: {
     fontWeight: 'bold',
     fontSize: 26,
     color: '#5a2a27',
     marginBottom: 6,
   },
+
+  // Subtitle text
   subtitle: {
-    fontSize: 15,
+    fontSize: 16,
     color: '#6d3530ff',
     textAlign: 'center',
     marginHorizontal: 20,
     marginBottom: 25,
   },
+
+  // Button row
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 20,
+    width: '100%',
+  },
+
+  // Button style
   button: {
     backgroundColor: '#a16464ff',
-    paddingVertical: 10,
-    paddingHorizontal: 25,
-    borderRadius: 25,
+    paddingVertical: 11,
+    paddingHorizontal: 8,
+    borderRadius: 50,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 4,
+    marginHorizontal: 2,
   },
+
+  // Button text style
   buttonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '600',
+    textAlign: 'center',
   },
+
+  // Section container (Skills, Education, Certifications)
+  sectionContainer: {
+    width: '100%',
+    marginBottom: 15,
+    alignItems: 'center',
+    backgroundColor: '#deb8b8ff',
+    borderRadius: 40,
+    padding: 10,
+  },
+
+  // Section title
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    margin: 5,
+    color: '#52251fff',
+  },
+
+  // Inner container for text items
   skillsContainer: {
-    flexDirection: 'column', 
-    flexWrap: 'wrap',    
+    flexDirection: 'row',
     justifyContent: 'center',
-    gap: 10,            
-    marginTop: 20,
+    flexWrap: 'wrap',
+    marginTop: 5,
   },
+
+  // Each skill/education/certification item
   skill: {
-    backgroundColor: '#e6c1c1ff',
-    color: '#44211fff',
+    backgroundColor: '#cea09bff',
+    color: '#320a0aff',
+    fontWeight: 'bold',
     fontSize: 14,
     textAlign: 'center',
     paddingVertical: 10,
-    paddingHorizontal: 18,
-    borderRadius: 20,
-    borderWidth: 2,       
-    borderColor: '#a16464ff', 
-    shadowColor: '#2d0000ff',
-    fontWeight: '500',    
+    paddingHorizontal: 10,
+    borderRadius: 25,
+    borderWidth: 1,
+    borderColor: '#d88b8b',
+    shadowColor: '#b37272',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 6,
-    elevation: 3,
-    margin: 5,
-  }
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 2,
+    margin: 6,
+  },
 });
